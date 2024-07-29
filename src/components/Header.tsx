@@ -6,7 +6,6 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand">
-            {" "}
             React Academy
           </Link>
           <button
@@ -25,6 +24,11 @@ const Header = () => {
               <li className="nav-item">
                 <Link to="/blogs" className="nav-link">
                   Blogs
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/users" className="nav-link">
+                  Users
                 </Link>
               </li>
               <li className="nav-item">

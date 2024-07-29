@@ -5,7 +5,9 @@ import Home from "./Home";
 import Blogs from "./Blogs";
 import Contact from "./Contact";
 import Error from "./Error";
-import PostDetails from "./PostDetails";
+import BlogDetails from "./BlogDetails";
+import Users from "./Users";
+import UserDetails from "./UserDetails";
 
 class Dashboard extends Component {
   render(): ReactNode {
@@ -16,8 +18,10 @@ class Dashboard extends Component {
             <Route path="/" element={<Header />}>
               <Route index element={<Home />} />
               <Route path="blogs" element={<Blogs />} />
+              <Route path="blogs/details" element={<BlogDetails />} />
+              <Route path="users" element={<Users />} />
+              <Route path="users/details" element={<UserDetails />} />
               <Route path="contact" element={<Contact />} />
-              <Route path="details" element={<PostDetails />} />
               <Route path="*" element={<Error />} />
             </Route>
           </Routes>

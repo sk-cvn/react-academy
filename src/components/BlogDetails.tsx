@@ -11,7 +11,7 @@ export interface Comment {
   body: string;
 }
 
-const PostDetails = () => {
+const BlogDetails = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [comments, setComments] = useState<Comment[]>([]);
@@ -48,4 +48,4 @@ const PostDetails = () => {
   );
 };
 
-export default PostDetails;
+export default BlogDetails;
