@@ -31,10 +31,8 @@ const Comments = ({ items }: CommentsProps) => {
           ))}
         </ul>
       </>
-    )
-  else return (
-    <p>No Data fount</p>
-  );
+    );
+  else return <p>No Data fount</p>;
 };
 
 export default Comments;

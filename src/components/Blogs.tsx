@@ -4,6 +4,7 @@ import axios from "axios";
 import BlogList from "./BlogList";
 import Loader from "./Loader";
 import { Pagination } from "@mui/material";
+import { AddComment } from "@mui/icons-material";
 
 export interface Post {
   userId: number;
@@ -21,6 +22,10 @@ const Blogs = () => {
 
   useEffect(() => {
     setLoaderStatus(true);
+    getPost();
+  }, []);
+
+  const getPost = () => {
     axios
       .get("https://jsonplaceholder.typicode.com/posts")
       .then((response) => {
@@ -32,23 +37,57 @@ const Blogs = () => {
         console.error(error);
         setLoaderStatus(false);
       });
-  }, []);
+  };
 
   const updateCurrentPage = (page: number) => {
     setCurrentPage(page);
-  }
+  };
 
-  const handleItemSelection = (data: Post) => {
+  const handlePostSelection = (data: Post) => {
     navigate("/blogs/details", { state: { blog: data } });
+  };
+
+  const handlePostUpdate = (data: Post) => {
+    navigate("/blogs/edit", { state: { blog: data } });
+  };
+
+  const createNewBlog = () => {
+    navigate("/blogs/create");
+  };
+
+  const handlePostDeletion = (data: Post) => {
+    setLoaderStatus(true);
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/posts/${data.id}`)
+      .then((_) => {
+        getPost();
+        setLoaderStatus(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoaderStatus(false);
+      });
   };
 
   const getPageCount = () => {
     return Math.ceil(posts.length / 10);
-  }
+  };
 
   const getPagination = () => {
-    return posts.length != 0 && <Pagination variant="outlined" shape="rounded" showFirstButton showLastButton count={getPageCount()} page={currentPage} onChange={(_, val) => updateCurrentPage(val)} />
-  }
+    return (
+      posts.length != 0 && (
+        <Pagination
+          variant="outlined"
+          shape="rounded"
+          showFirstButton
+          showLastButton
+          count={getPageCount()}
+          page={currentPage}
+          onChange={(_, val) => updateCurrentPage(val)}
+        />
+      )
+    );
+  };
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPage = indexOfLastPost - postPerPage;
@@ -57,13 +96,17 @@ const Blogs = () => {
   return (
     <>
       <Loader status={loaderStatus} />
+      <div className="align-right add-post">
+        <AddComment onClick={createNewBlog} sx={{ fontSize: 40 }} />
+      </div>
       <BlogList
         heading="Blogs"
         items={currentPosts}
-        onSelectItem={(data) => handleItemSelection(data)}
+        onSelectItem={(data) => handlePostSelection(data)}
+        onDeleteItem={(data) => handlePostDeletion(data)}
+        onEditItem={(data) => handlePostUpdate(data)}
       />
       {getPagination()}
-
     </>
   );
 };

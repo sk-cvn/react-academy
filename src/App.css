@@ -50,3 +50,27 @@
 .section {
   margin-bottom: 20px;
 }
+
+.align-right {
+  text-align: right;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+
+  > div {
+    width: 100%;
+  }
+}
+
+.action-btns > button {
+  margin: 10px;
+}
+
+.add-post {
+  padding: 2rem 0 0;
+}
+
+.create-form {
+  padding: 2rem 0;
+}
